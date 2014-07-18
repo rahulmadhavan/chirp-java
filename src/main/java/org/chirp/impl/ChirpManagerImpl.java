@@ -2,6 +2,7 @@ package org.chirp.impl;
 
 import org.chirp.*;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,9 +22,9 @@ public class ChirpManagerImpl implements ChirpManager {
 
     public ChirpManagerImpl(Chirper chirper,ChirpBroadcaster chirpBroadcaster, ChirpReceiver chirpReceiver){
         this.chirper = chirper;
+        this.chirperMap = new HashMap<String, Chirper>();
         this.chirpBroadcaster = chirpBroadcaster;
         this.chirpReceiver = chirpReceiver;
-        this.chirpReceiver.registerChirpObserver(this);
     }
 
 
@@ -34,6 +35,7 @@ public class ChirpManagerImpl implements ChirpManager {
         Thread thread = new Thread(this.chirpReceiver);
         thread.setDaemon(true);
         thread.start();
+        this.chirpReceiver.registerChirpObserver(this);
         this.chirpBroadcaster.publish(this.chirper);
         this.chirpBroadcaster.discover(this.chirper);
     }
@@ -45,8 +47,8 @@ public class ChirpManagerImpl implements ChirpManager {
     }
 
     @Override
-    public Set<String> listChirpers() {
-        return this.chirperMap.keySet();
+    public Map<String,Chirper> listChirpers() {
+        return this.chirperMap;
     }
 
     @Override
@@ -75,7 +77,13 @@ public class ChirpManagerImpl implements ChirpManager {
     }
 
     @Override
+    public Chirper getChirper() {
+        return this.chirper;
+    }
+
+    @Override
     public void notify(Chirp chirp) {
+        System.out.println("RECEIVED CHIRP ---- " + chirp.toString());
         if(chirp.getSender().compareTo(this.chirper.getName()) != 0){
             if(chirp.getMethod().compareTo("PUBLISH") == 0){
                 this.chirperMap.put(chirp.getName(),chirp.getChirper());
@@ -83,10 +91,10 @@ public class ChirpManagerImpl implements ChirpManager {
                 this.chirperMap.remove(chirp.getName());
             }else if(chirp.getMethod().compareTo("DISCOVER") == 0){
                 if(chirp.getName().trim().compareTo("") == 0 || chirp.getName().trim().compareTo(this.chirper.getName()) == 0 ){
-                    this.chirpBroadcaster.discover(this.chirper);
+                    this.chirpBroadcaster.publish(this.chirper);
                 }
             }else{
-
+                System.out.println("This bird doesn't know how to chirp -- " + chirp.toString());
             }
 
         }

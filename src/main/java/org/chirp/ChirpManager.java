@@ -1,5 +1,6 @@
 package org.chirp;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -15,9 +16,10 @@ public interface ChirpManager extends ChirpObserver {
 
     void stop();
 
-    Set<String> listChirpers();
+    Map<String,Chirper> listChirpers();
 
     Chirper fetchChirper(String name);
 
+    Chirper getChirper();
 
 }

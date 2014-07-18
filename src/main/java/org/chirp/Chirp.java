@@ -1,6 +1,8 @@
 package org.chirp;
 
 
+import com.google.gson.Gson;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -135,6 +137,12 @@ public class Chirp {
             if(null == name){
                 throw new IllegalArgumentException("name cannot be null");
             }
+            if(null == uri){
+                this.uri = "";
+            }
+            if(null == protocol){
+                this.protocol = "";
+            }
             if(null == method){
                 throw new IllegalArgumentException("method cannot be null");
             }
@@ -152,6 +160,11 @@ public class Chirp {
 
     public Chirper getChirper(){
         return new Chirper(this.getName(),this.getUri(),this.getPort(),this.getProtocol(),this.getConfig());
+    }
+
+    public String toString(){
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 
 

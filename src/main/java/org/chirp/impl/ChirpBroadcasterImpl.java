@@ -47,7 +47,9 @@ public class ChirpBroadcasterImpl implements ChirpBroadcaster {
     }
 
     private void broadcast(Chirp chirp){
+        //TODO remove GSON usage from here
         Gson gson = new Gson();
+        System.out.println("BROADCASTING CHIRP ---- " + chirp.toString());
         broadcast(gson.toJson(chirp));
     }
 

@@ -57,7 +57,7 @@ public class ChirpReceiverImpl implements ChirpReceiver{
                 socket.receive(packet);
 
                 String received = new String(packet.getData());
-                System.out.println("Message : " + received);
+                this.receive(received.trim());
                 Thread.sleep(1000);
 
             }
@@ -93,10 +93,13 @@ public class ChirpReceiverImpl implements ChirpReceiver{
 
     @Override
     public Chirp receive(String message) {
+        //TODO surround with try catch and log
         Gson gson = new Gson();
         Chirp chirp = gson.fromJson(message,Chirp.class);
         if(chirpObserver != null){
             chirpObserver.notify(chirp);
+        }else{
+            System.out.println("Observer not set");
         }
         return chirp;
     }

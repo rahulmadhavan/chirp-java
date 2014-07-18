@@ -1,0 +1,7 @@
+name: Chirper1
+uri: chirper1.org
+port: 9090
+protocol: http
+http:
+  port: 9090
+  adminPort: 9001

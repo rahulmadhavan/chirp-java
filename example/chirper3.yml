@@ -1,0 +1,7 @@
+name: Chirper3
+uri: chirper3.org
+port: 9092
+protocol: http
+http:
+  port: 9092
+  adminPort: 9003
