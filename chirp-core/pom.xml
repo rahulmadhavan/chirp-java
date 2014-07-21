@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>chirp</artifactId>
+    <artifactId>chirp-core</artifactId>
 
     <dependencies>
         <dependency>

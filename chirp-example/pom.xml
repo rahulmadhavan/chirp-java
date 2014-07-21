@@ -15,7 +15,7 @@
 
         <dependency>
             <groupId>chirp-java</groupId>
-            <artifactId>chirp</artifactId>
+            <artifactId>chirp-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
