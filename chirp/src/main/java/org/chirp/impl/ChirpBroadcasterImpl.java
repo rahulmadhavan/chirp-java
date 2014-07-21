@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import org.chirp.Chirp;
 import org.chirp.ChirpBroadcaster;
 import org.chirp.Chirper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import java.io.IOException;
@@ -20,7 +22,7 @@ import java.net.MulticastSocket;
  */
 public class ChirpBroadcasterImpl implements ChirpBroadcaster {
 
-
+    private static Logger logger = LoggerFactory.getLogger(ChirpBroadcasterImpl.class);
 
     private void broadcast(String message){
 
@@ -35,11 +37,11 @@ public class ChirpBroadcasterImpl implements ChirpBroadcaster {
             socket.send(packet);
             Thread.sleep(5000);
 
-            //TODO log exception
+
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            logger.error("IO EXCEPTION IN CHIRP BROADCASTER",e);
         } catch (InterruptedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            logger.error("INTERRUPTED IN CHIRP BROADCASTER",e);
         }finally {
             if(null != socket)
                 socket.close();
@@ -47,10 +49,8 @@ public class ChirpBroadcasterImpl implements ChirpBroadcaster {
     }
 
     private void broadcast(Chirp chirp){
-        //TODO remove GSON usage from here
-        Gson gson = new Gson();
-        System.out.println("BROADCASTING CHIRP ---- " + chirp.toString());
-        broadcast(gson.toJson(chirp));
+        logger.debug("BROADCASTING CHIRP ---- {}", chirp.toString());
+        broadcast(chirp.toString());
     }
 
 

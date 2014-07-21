@@ -10,6 +10,8 @@ import java.net.MulticastSocket;
 import org.chirp.Chirp;
 import org.chirp.ChirpReceiver;
 import org.chirp.ChirpObserver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -20,6 +22,8 @@ import org.chirp.ChirpObserver;
  * To change this template use File | Settings | File Templates.
  */
 public class ChirpReceiverImpl implements ChirpReceiver{
+
+    private static Logger logger = LoggerFactory.getLogger(ChirpReceiverImpl.class);
 
     private boolean stopped;
     private ChirpObserver chirpObserver;
@@ -51,7 +55,6 @@ public class ChirpReceiverImpl implements ChirpReceiver{
 
 
             while(!isStopped()){
-
                 byte[] buf = new byte[10240];
                 packet = new DatagramPacket(buf, buf.length);
                 socket.receive(packet);
@@ -65,11 +68,9 @@ public class ChirpReceiverImpl implements ChirpReceiver{
             socket.leaveGroup(group);
 
         }catch (IOException e){
-            //TODO: Log Exception
-            e.printStackTrace();
+            logger.error("IO EXCEPTION IN CHIRP RECEIVER",e);
         } catch (InterruptedException e) {
-            //TODO: Log Exception
-            e.printStackTrace();
+            logger.error("INTERRUPTED IN CHIRP RECEIVER", e);
         } finally {
 
             if(null != socket){
@@ -87,19 +88,18 @@ public class ChirpReceiverImpl implements ChirpReceiver{
 
     public void stop(){
         setStopped(true);
-        System.out.println("Receiver Stopped");
+        logger.info("Receiver Stopped");
     }
 
 
     @Override
     public Chirp receive(String message) {
-        //TODO surround with try catch and log
         Gson gson = new Gson();
         Chirp chirp = gson.fromJson(message,Chirp.class);
         if(chirpObserver != null){
             chirpObserver.notify(chirp);
         }else{
-            System.out.println("Observer not set");
+            logger.warn("NO OBSERVER SET IN RECEIVER");
         }
         return chirp;
     }

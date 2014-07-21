@@ -5,3 +5,6 @@ protocol: http
 http:
   port: 9092
   adminPort: 9003
+logging:
+  loggers:
+    "org.chirp": DEBUG

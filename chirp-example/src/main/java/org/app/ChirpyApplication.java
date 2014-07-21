@@ -8,7 +8,8 @@ import org.app.config.ChirpyConfiguration;
 import org.app.resources.ChirpyResource;
 import org.chirp.ChirpManager;
 import org.chirp.ChirpManagerFactory;
-import org.chirp.Chirper;
+
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,6 +22,7 @@ import org.chirp.Chirper;
 
 
 public class ChirpyApplication extends Service<ChirpyConfiguration> {
+
 
     private ChirpManager chirpManager;
 
@@ -40,6 +42,7 @@ public class ChirpyApplication extends Service<ChirpyConfiguration> {
         chirpManager.startChirping();
         final ChirpyResource chirpyResource = new ChirpyResource(chirpManager);
         environment.addResource(chirpyResource);
+
     }
 
 }

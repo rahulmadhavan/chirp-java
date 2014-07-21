@@ -1,10 +1,11 @@
 package org.chirp.impl;
 
 import org.chirp.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,6 +15,8 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 public class ChirpManagerImpl implements ChirpManager {
+
+    private static Logger logger = LoggerFactory.getLogger(ChirpBroadcasterImpl.class);
 
     private Map<String,Chirper> chirperMap;
     private ChirpReceiver chirpReceiver;
@@ -66,8 +69,7 @@ public class ChirpManagerImpl implements ChirpManager {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
-                        //TODO LOG
-                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        logger.debug("CHIRP MANAGER INTERRUPTED WHILE FETCHING", e);
                     }
                 }
             }
@@ -83,7 +85,7 @@ public class ChirpManagerImpl implements ChirpManager {
 
     @Override
     public void notify(Chirp chirp) {
-        System.out.println("RECEIVED CHIRP ---- " + chirp.toString());
+        logger.debug("RECEIVED CHIRP ---- {}", chirp.toString());
         if(chirp.getSender().compareTo(this.chirper.getName()) != 0){
             if(chirp.getMethod().compareTo("PUBLISH") == 0){
                 this.chirperMap.put(chirp.getName(),chirp.getChirper());
@@ -94,7 +96,7 @@ public class ChirpManagerImpl implements ChirpManager {
                     this.chirpBroadcaster.publish(this.chirper);
                 }
             }else{
-                System.out.println("This bird doesn't know how to chirp -- " + chirp.toString());
+                logger.warn("This bird doesn't know how to chirp ---- {}", chirp.toString());
             }
 
         }
