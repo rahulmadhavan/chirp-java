@@ -23,12 +23,22 @@ public class ChirpManagerFactory {
     private String multiCastAddress;
     private int multiCastPort;
 
+    /**
+     *
+     * @param chirper {@link Chirper} for which Chirp Manager needs to be created
+     */
     public ChirpManagerFactory(Chirper chirper){
         this.chirper = chirper;
         this.multiCastAddress = ChirpConfiguration.getMultiCastAddress();
         this.multiCastPort = ChirpConfiguration.getMultiCastPort();
     }
 
+    /**
+     *
+     * @param chirper {@link Chirper} for which Chirp Manager needs to be created
+     * @param multiCastAddress multiCast address at which all Chirpers will broadcast and publish
+     * @param multiCastPort multiCast port at which all Chirpers will broadcast and publish
+     */
     public ChirpManagerFactory(Chirper chirper, String multiCastAddress, int multiCastPort){
         this.multiCastAddress = multiCastAddress;
         this.multiCastPort = multiCastPort;
