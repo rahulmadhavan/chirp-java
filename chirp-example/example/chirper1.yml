@@ -1,10 +1,10 @@
-name: Chirper1
-uri: chirper1.org
-port: 9090
+name: chirper1
+uri: chirp.org
+port: 9001
 protocol: http
 http:
-  port: 9090
-  adminPort: 9001
+  port: 9001
+  adminPort: 9091
 logging:
   loggers:
     "org.chirp": DEBUG
