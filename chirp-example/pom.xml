@@ -11,6 +11,30 @@
 
     <artifactId>chirp-example</artifactId>
 
+    <name>Chirp Example</name>
+    <description> An Example Illustrating the usage of Chirp Core </description>
+    <url>https://github.com/rahulmadhavan/chirp-java</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Rahul Madhavan</name>
+            <email>rahulmadhavan21@gmail.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>https://github.com/rahulmadhavan/chirp-java.git</connection>
+        <developerConnection>https://github.com/rahulmadhavan/chirp-java.git</developerConnection>
+        <url>https://github.com/rahulmadhavan/chirp-java</url>
+    </scm>
+
     <dependencies>
 
         <dependency>
