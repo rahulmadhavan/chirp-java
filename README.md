@@ -42,7 +42,7 @@ to discover services using chirp on the same network
 
 - now execute
 
-    ``` java -jar chirp-example/target/chirp-example-1.0-SNAPSHOT.jar server chirp-example/example/chirper2.yml```
+    ``` java -jar chirp-example/target/chirp-example-1.0-SNAPSHOT.jar server chirp-example/example/chirper3.yml```
 
   - and open
 
@@ -52,7 +52,7 @@ to discover services using chirp on the same network
       
 
   - you will see that they have all discovered each other
-  - To understand the apis provided by chirp have a look at the [chirp-example](chirp-example)
+  - To understand the apis provided by chirp-core have a look at the [chirp-example](chirp-example)
       
       
       
