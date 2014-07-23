@@ -1,6 +1,7 @@
 package org.chirp.impl;
 
 import org.chirp.*;
+import org.chirp.config.ChirpMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,10 +10,10 @@ import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
- * User: rahulm
+ * User: rahulmadhavan
  * Date: 16/07/14
  * Time: 7:03 PM
- * To change this template use File | Settings | File Templates.
+ *
  */
 public class ChirpManagerImpl implements ChirpManager {
 
@@ -29,9 +30,6 @@ public class ChirpManagerImpl implements ChirpManager {
         this.chirpBroadcaster = chirpBroadcaster;
         this.chirpReceiver = chirpReceiver;
     }
-
-
-
 
     @Override
     public void startChirping() {
@@ -87,11 +85,11 @@ public class ChirpManagerImpl implements ChirpManager {
     public void notify(Chirp chirp) {
         logger.debug("RECEIVED CHIRP ---- {}", chirp.toString());
         if(chirp.getSender().compareTo(this.chirper.getName()) != 0){
-            if(chirp.getMethod().compareTo("PUBLISH") == 0){
+            if(chirp.getMethod() == ChirpMethod.PUBLISH){
                 this.chirperMap.put(chirp.getName(),chirp.getChirper());
-            }else if(chirp.getMethod().compareTo("STOP") == 0){
+            }else if(chirp.getMethod() == ChirpMethod.STOP){
                 this.chirperMap.remove(chirp.getName());
-            }else if(chirp.getMethod().compareTo("DISCOVER") == 0){
+            }else if(chirp.getMethod() == ChirpMethod.DISCOVER){
                 if(chirp.getName().trim().compareTo("") == 0 || chirp.getName().trim().compareTo(this.chirper.getName()) == 0 ){
                     this.chirpBroadcaster.publish(this.chirper);
                 }

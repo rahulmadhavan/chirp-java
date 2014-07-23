@@ -16,20 +16,24 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Created with IntelliJ IDEA.
- * User: rahulm
+ * User: rahulmadhavan
  * Date: 16/07/14
  * Time: 4:18 PM
- * To change this template use File | Settings | File Templates.
+ *
  */
 public class ChirpReceiverImpl implements ChirpReceiver{
 
     private static Logger logger = LoggerFactory.getLogger(ChirpReceiverImpl.class);
 
+    private String multiCastAddress;
+    private int multiCastPort;
     private boolean stopped;
     private ChirpObserver chirpObserver;
 
-    public ChirpReceiverImpl(){
+    public ChirpReceiverImpl(String multiCastAddress, int multiCastPort){
         this.stopped = false;
+        this.multiCastAddress = multiCastAddress;
+        this.multiCastPort = multiCastPort;
 
     }
 
@@ -49,8 +53,8 @@ public class ChirpReceiverImpl implements ChirpReceiver{
         DatagramPacket packet;
 
         try{
-            socket = new MulticastSocket(9292);
-            group = InetAddress.getByName("224.1.1.4");
+            socket = new MulticastSocket(this.multiCastPort);
+            group = InetAddress.getByName(this.multiCastAddress);
             socket.joinGroup(group);
 
 

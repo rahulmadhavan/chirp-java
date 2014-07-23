@@ -2,29 +2,64 @@ package org.chirp;
 
 
 import com.google.gson.Gson;
+import org.chirp.config.ChirpMethod;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
- * User: rahulm
+ * User: rahulmadhavan
  * Date: 16/07/14
  * Time: 2:34 PM
- * To change this template use File | Settings | File Templates.
+ *
+ */
+
+/**
+ * This class represents the message that chirpers (Services using chirp) use
+ * for communication
+ *
  */
 public class Chirp {
 
-    private String method;
+    /**
+     * method used for communication, values are {@link org.chirp.config.ChirpMethod}
+     *
+     */
+    private ChirpMethod method;
+
+    /**
+     * name of the service for which the chirp is intended
+     */
     private String name;
+
+    /**
+     * uri of the service sending the chirp
+     */
     private String uri;
+
+    /**
+     * port of the service sending the chirp
+     */
     private int port;
+
+    /**
+     * protocol used by the service sending the chirp
+     */
     private String protocol;
+
+    /**
+     * config for sending custom information for the service
+     */
     private Map<String, Object> config;
+
+    /**
+     * name of the service sending the chirp
+     */
     private String sender;
 
 
-    public String getMethod() {
+    public ChirpMethod getMethod() {
         return method;
     }
 
@@ -52,7 +87,7 @@ public class Chirp {
         return sender;
     }
 
-    public Chirp(String method,
+    public Chirp(ChirpMethod method,
                  String name,
                  String uri,
                  int port,
@@ -69,7 +104,7 @@ public class Chirp {
     }
 
     public static class ChirpBuilder{
-        private String method;
+        private ChirpMethod method;
         private String name;
         private String uri;
         private int port;
@@ -86,7 +121,7 @@ public class Chirp {
 
         }
 
-        public ChirpBuilder(String method, Chirper chirper){
+        public ChirpBuilder(ChirpMethod method, Chirper chirper){
             this.method = method;
             this.name = chirper.getName();
             this.uri = chirper.getUri();
@@ -96,7 +131,7 @@ public class Chirp {
 
         }
 
-        public ChirpBuilder setMethod(String method) {
+        public ChirpBuilder setMethod(ChirpMethod method) {
             this.method = method;
             return this;
         }

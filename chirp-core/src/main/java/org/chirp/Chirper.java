@@ -8,16 +8,42 @@ import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
- * User: rahulm
+ * User: rahulmadhavan
  * Date: 16/07/14
  * Time: 3:05 PM
- * To change this template use File | Settings | File Templates.
+ *
+ */
+
+/**
+ * This class represents a Service that wants to use Chirp to discover other services
+ * and publish itself to other chirp using services
+ *
  */
 public class Chirper {
+
+    /**
+     * name of the service
+     */
     private String name;
+
+    /**
+     * uri for the service
+     */
     private String uri;
+
+    /**
+     * port for the service
+     */
     private int port;
+
+    /**
+     * protocol used by the service
+     */
     private String protocol;
+
+    /**
+     * config to be store custom information for the service
+     */
     private Map<String, Object> config;
 
     @JsonProperty
